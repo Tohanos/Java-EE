@@ -18,8 +18,7 @@
                 <h1>Product list</h1>
             </div>
             <div class="col-2">
-                <!-- TODO оживить кнопку добавления-->
-                <a class="btn btn-outline-dark">ADD</a>
+                <a class="btn btn-outline-dark" th:href="@{/product/new}">ADD</a>
             </div>
         </div>
 
@@ -42,8 +41,8 @@
                 <th>
                     <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i
                             class="fas fa-edit"></i></a>
-                    <!-- TODO оживить кнопку удаления -->
-                    <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
+                    <a class="btn btn-danger" th:href="@{/product/delete{id}(id = ${product.id})}"><i
+                            class="far fa-trash-alt"></i></a>
                 </th>
             </tr>
             </tbody>
