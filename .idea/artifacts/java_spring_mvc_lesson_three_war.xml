@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="java-spring-mvc-lesson-three:war">
+    <output-path>$PROJECT_DIR$/java-spring-mvc-lesson-three/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>java-spring-mvc-lesson-three</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="java-spring-mvc-lesson-three.war">
+      <element id="artifact" artifact-name="java-spring-mvc-lesson-three:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -22,14 +22,14 @@ public class ProductController {
     @GetMapping
     public String indexPage(Model model) {
         model.addAttribute("products", productRepository.findAll());
-        return "product_views/index";
+        return "index";
     }
 
     @GetMapping("/{id}")
     public String editProduct(@PathVariable(value = "id") Long id,
                               Model model) {
         model.addAttribute("product", productRepository.findById(id));
-        return "product_views/product_form";
+        return "product_form";
     }
 
     @PostMapping("/product_update")
@@ -43,7 +43,7 @@ public class ProductController {
         Product product = new Product(0L, "", "", new BigDecimal("0"));
         productRepository.add(product);
         model.addAttribute("product", product);
-        return "product_views/product_form";
+        return "product_form";
     }
 
     @GetMapping("/delete/{id}")
