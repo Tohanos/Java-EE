@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/product")
 public class TaskController {
@@ -38,13 +40,16 @@ public class TaskController {
 
     @GetMapping("/new")
     public String newProduct(Model model) {
-        // TODO: 09.04.2021 дописать добавление продукта
+        Product product = new Product(0L, "", "", new BigDecimal("0"));
+        productRepository.add(product);
+        model.addAttribute("product", product);
         return "task_views/product_form";
     }
 
-    @GetMapping("/delete")
-    public String removeProduct(Model model) {
-        // TODO: 09.04.2021 дописать удаление продукта
+    @GetMapping("/delete{id}")
+    public String removeProduct(@PathVariable(value = "id") Long id, Model model) {
+        productRepository.remove(id);
+        model.addAttribute("products", productRepository.findAll());
         return "task_views/index";
     }
 }
