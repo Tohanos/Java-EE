@@ -8,12 +8,19 @@
         <outputRelativeToContentRoot value="true" />
         <module name="java-spring-mvc-lesson-three" />
         <module name="java-ee-lesson-one" />
+        <module name="java-spring-boot-lesson-four" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="java-ee-lesson-one" target="11" />
       <module name="java-spring" target="11" />
+      <module name="java-spring-boot-lesson-four" target="11" />
       <module name="java-spring-mvc-lesson-three" target="1.7" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="java-spring-boot-lesson-four" options="-parameters" />
+    </option>
   </component>
 </project>

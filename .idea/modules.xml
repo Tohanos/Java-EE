@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-ee-lesson-one/java-ee-lesson-one.iml" filepath="$PROJECT_DIR$/java-ee-lesson-one/java-ee-lesson-one.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-spring.iml" filepath="$PROJECT_DIR$/java-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-spring-boot-lesson-four/java-spring-boot-lesson-four.iml" filepath="$PROJECT_DIR$/java-spring-boot-lesson-four/java-spring-boot-lesson-four.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-spring-mvc-lesson-three/java-spring-mvc-lesson-three.iml" filepath="$PROJECT_DIR$/java-spring-mvc-lesson-three/java-spring-mvc-lesson-three.iml" />
     </modules>
   </component>
