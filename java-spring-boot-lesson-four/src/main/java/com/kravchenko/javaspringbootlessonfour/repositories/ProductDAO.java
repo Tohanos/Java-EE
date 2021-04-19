@@ -13,15 +13,8 @@ import java.util.List;
 @Component
 public class ProductDAO {
 
-    private SessionFactory factory;
-
     @PostConstruct
     public void init() {
-        factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
-                .buildSessionFactory();
-
             add(new Product(null, "MacBook", "Ultra low and Great Power", new BigDecimal(3000)));
             add(new Product(null, "iPhone", "The most expensive phone by credit", new BigDecimal(1000)));
             add(new Product(null, "iPad", "More size - more cost", new BigDecimal(2000)));
@@ -29,6 +22,10 @@ public class ProductDAO {
     }
 
     public void add(Product product) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Product.class)
+                .buildSessionFactory();
 
         Session session = null;
 
@@ -44,6 +41,10 @@ public class ProductDAO {
     }
 
     public void update(Product product) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Product.class)
+                .buildSessionFactory();
 
         Session session = null;
 
@@ -62,6 +63,11 @@ public class ProductDAO {
     }
 
     public void remove(long id) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Product.class)
+                .buildSessionFactory();
+
         Session session = null;
 
         try {
@@ -77,7 +83,13 @@ public class ProductDAO {
     }
 
     public Product findById(long id) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Product.class)
+                .buildSessionFactory();
+
         Session session = null;
+
         Product product;
 
         try {
@@ -93,7 +105,13 @@ public class ProductDAO {
     }
 
     public List<Product> findAll() {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Product.class)
+                .buildSessionFactory();
+
         List<Product> productList = null;
+
         Session session = null;
 
         try {
