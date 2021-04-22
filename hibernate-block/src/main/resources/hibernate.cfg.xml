@@ -18,6 +18,6 @@
         <mapping class="com.kravchenko.hibernate.entities.Customer"/>
         <mapping class="com.kravchenko.hibernate.entities.Manufacturer"/>
         <mapping class="com.kravchenko.hibernate.entities.Product"/>
-        <mapping class="com.kravchenko.hibernate.entities.BigItem"/>
+        <mapping class="com.kravchenko.hibernate.entities.Purchases"/>
     </session-factory>
 </hibernate-configuration>

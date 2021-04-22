@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "manufacturers")
+@Table(name = "manufacturers", schema = "products")
 public class Manufacturer {
     @Id
     @GeneratedValue

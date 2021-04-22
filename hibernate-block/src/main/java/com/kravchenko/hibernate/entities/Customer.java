@@ -3,7 +3,7 @@ package com.kravchenko.hibernate.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customers", schema = "products")
 public class Customer {
 
     @Id
@@ -14,6 +14,7 @@ public class Customer {
     @Column(name = "name")
     String name;
 
+//    @
 
     public Customer() {
     }
