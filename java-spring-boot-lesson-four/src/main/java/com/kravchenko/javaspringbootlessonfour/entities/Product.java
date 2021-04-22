@@ -1,11 +1,24 @@
 package com.kravchenko.javaspringbootlessonfour.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "products", schema = "products")
 public class Product {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "product_id")
     private Long id;
+
+    @Column(name = "product_name")
     private String name;
+
+    @Column(name = "product_description")
     private String description;
+
+    @Column(name = "product_price")
     private BigDecimal price;
 
     public Product() {
