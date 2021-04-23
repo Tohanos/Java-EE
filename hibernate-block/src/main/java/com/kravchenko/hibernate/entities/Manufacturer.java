@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "manufacturers", schema = "products")
 public class Manufacturer {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -18,7 +19,7 @@ public class Manufacturer {
     @Column(name = "title")
     String title;
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturers")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Product> products;
 
