@@ -27,19 +27,21 @@ public class CustomerProductService {
     }
 
     public List<Product> getProductsByCustomer(Long customerId) {
-        List<Purchase> purchases = purchaseDAO.findByCustomer(customerId);
+        Customer customer = customerDAO.findById(customerId);
+        List<Purchase> purchases = customer.getPurchases();
         List<Product> products = new ArrayList<>();
         for (Purchase purchase : purchases) {
-            products.add(productDAO.findById(purchase.getProduct_id()));
+            products.add(purchase.getProduct());
         }
         return products;
     }
 
     public List<Customer> getCustomerByProduct(Long productId) {
-        List<Purchase> purchases = purchaseDAO.findByProduct(productId);
+        Product product = productDAO.findById(productId);
+        List<Purchase> purchases = product.getPurchaseList();
         List<Customer> customers = new ArrayList<>();
         for (Purchase purchase : purchases) {
-            customers.add(customerDAO.findById(purchase.getCustomer_id()));
+            customers.add(purchase.getCustomer());
         }
         return customers;
     }

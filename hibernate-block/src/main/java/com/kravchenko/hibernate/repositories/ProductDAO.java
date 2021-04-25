@@ -66,7 +66,7 @@ public class ProductDAO {
             product = (Product) session.get(Product.class, id);
 
         } finally {
-//            session.close();
+            session.close();
         }
         return product;
     }

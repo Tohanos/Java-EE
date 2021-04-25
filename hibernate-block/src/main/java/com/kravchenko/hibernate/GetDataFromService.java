@@ -13,11 +13,8 @@ public class GetDataFromService {
     public void getData () {
         try {
             CustomerProductService customerProductService = new CustomerProductService();
-//            System.out.println(customerProductService.getCustomerByProduct(1L));
-//            System.out.println(customerProductService.getProductsByCustomer(2L));
-//            System.out.println(customerProductService.getAllCustomers());
-//            System.out.println(customerProductService.getCustomer(1L));
-            System.out.println(customerProductService.getProduct(1L));
+            System.out.println(customerProductService.getCustomerByProduct(1L));
+            System.out.println(customerProductService.getProductsByCustomer(2L));
         }
         finally {
             HibernateUtil.closeSessionFactory();

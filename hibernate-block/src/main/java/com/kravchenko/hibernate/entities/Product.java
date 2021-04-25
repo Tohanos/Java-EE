@@ -2,9 +2,10 @@ package com.kravchenko.hibernate.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
-@Table(name = "products", schema = "products")
+@Table(name = "products", schema = "public")
 public class Product {
     @Id
     @GeneratedValue
@@ -20,6 +21,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     Manufacturer manufacturer;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    List<Purchase> purchaseList;
 
     public Product() {
     }
@@ -54,6 +58,10 @@ public class Product {
 
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public List<Purchase> getPurchaseList() {
+        return purchaseList;
     }
 
     @Override

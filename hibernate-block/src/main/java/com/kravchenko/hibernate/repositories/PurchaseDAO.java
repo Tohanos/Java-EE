@@ -34,8 +34,8 @@ public class PurchaseDAO {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Purchase purchase1 = (Purchase) session.get(Purchase.class, purchase.getId());
-            purchase1.setCustomer_id(purchase.getCustomer_id());
-            purchase1.setProduct_id(purchase.getProduct_id());
+            purchase1.setCustomer(purchase.getCustomer());
+            purchase1.setProduct(purchase.getProduct());
             purchase1.setPrice(purchase.getPrice());
             session.getTransaction().commit();
         } finally {
@@ -68,31 +68,6 @@ public class PurchaseDAO {
             session.close();
         }
         return purchase;
-    }
-
-    public List<Purchase> findByCustomer(Long customerId) {
-        List<Purchase> purchases;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            purchases = session.createQuery("from purchases p where p.customer_id = " + customerId).list();
-        } finally {
-            session.close();
-        }
-        return purchases;
-    }
-
-    public List<Purchase> findByProduct(Long productId) {
-        List<Purchase> purchases;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            purchases = session.createQuery("from purchases p where p.product_id = '" + productId + "'").list();
-            session.getTransaction().commit();
-        } finally {
-            session.close();
-        }
-        return purchases;
     }
 
     public List<Purchase> findAll() {

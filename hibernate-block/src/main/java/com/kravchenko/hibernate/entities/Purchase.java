@@ -4,18 +4,20 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "purchases", schema = "products")
+@Table(name = "purchases", schema = "public")
 public class Purchase {
     @Id
     @GeneratedValue
     @Column(name = "id")
     Long id;
 
-    @Column(name = "customer_id")
-    Long customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    Customer customer;
 
-    @Column(name = "product_id")
-    Long product_id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
 
     @Column(name = "price")
     BigDecimal price;
@@ -27,24 +29,24 @@ public class Purchase {
         return id;
     }
 
-    public Long getCustomer_id() {
-        return customer_id;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public Long getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setCustomer_id(Long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public void setPrice(BigDecimal price) {
@@ -55,8 +57,8 @@ public class Purchase {
     public String toString() {
         return "Purchases{" +
                 "id=" + id +
-                ", customer_id=" + customer_id +
-                ", product_id=" + product_id +
+                ", customer=" + customer +
+                ", product=" + product +
                 ", price=" + price +
                 '}';
     }

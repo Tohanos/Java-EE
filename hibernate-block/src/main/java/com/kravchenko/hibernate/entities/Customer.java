@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "customers", schema = "products")
+@Table(name = "customers", schema = "public")
 public class Customer {
 
     @Id
@@ -17,7 +17,7 @@ public class Customer {
     @Column(name = "name")
     String name;
 
-    @OneToMany(mappedBy = "customers")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Purchase> purchases;
 
