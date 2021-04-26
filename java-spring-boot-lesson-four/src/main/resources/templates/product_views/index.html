@@ -19,7 +19,10 @@
             </div>
             <div class="col-6">
                 <form class="form-inline" th:method="get">
-                    <!-- TODO добавить поля фильтров из ДЗ -->
+                    <input type="text" th:value="${param.minFilter}" class="form-control-md" id="min-filter"
+                           name="minFilter" placeholder="Minimum price">
+                    <input type="text" th:value="${param.maxFilter}" class="form-control-md" id="max-filter"
+                           name="maxFilter" placeholder="Maximum price">
                     <input type="text" th:value="${param.titleFilter}" class="form-control-md" id="title-filter"
                            name="titleFilter" placeholder="Find">
                     <button type="submit" class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
@@ -54,6 +57,14 @@
             </tbody>
         </table>
 
+        <div class="row">
+            <div class="col-3">
+                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${pageLeft})}"><i
+                        class="bi bi-arrow-left-square"></i></a>
+                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${pageRight})}"><i
+                        class="bi bi-arrow-right-square"></i></a>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -42,16 +43,20 @@ public class ProductService {
 
     @Transactional
     public List<Product> getByTitle(String nameFilter) {
-//		if (!nameFilter.contains("%")) {
-//			nameFilter = String.join("", "%", nameFilter, "%");
-//		}
-//		return productRepository.findProductByTitleLike(nameFilter);
-
-        // select * from Product p where 1 = 1 and p.title like nameFilter;
 
         Specification<Product> specification = Specification.where(null);
         specification = specification.and(ProductSpecification.titleLike(nameFilter));
 
         return productRepository.findAll(specification);
     }
+
+    @Transactional
+    public List<Product> getByMinMaxCriteria(BigDecimal minFilter, BigDecimal maxFilter) {
+
+        Specification<Product> specification = Specification.where(ProductSpecification.trueLiteral());
+        specification = specification.and(ProductSpecification.minMaxSelection(minFilter, maxFilter));
+
+        return productRepository.findAll(specification);
+    }
+
 }

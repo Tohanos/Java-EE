@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -15,13 +19,40 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String indexPage(Model model, @RequestParam(name = "titleFilter", required = false) String titleFilter) {
-        // TODO: 23.04.2021 Добавить обработку параметров формы
+    public String indexPage(Model model, @RequestParam(name = "titleFilter", required = false) String titleFilter,
+                            @RequestParam(name = "minFilter", required = false) BigDecimal minFilter,
+                            @RequestParam(name = "maxFilter", required = false) BigDecimal maxFilter) {
+        int currentPage = 1;
+        int maxProductsPerPage = 5;
+        List<Product> products = productService.getAllProduct();
+        List<Product> productsByTitle;
         if (titleFilter == null || titleFilter.isBlank()) {
-            model.addAttribute("products", productService.getAllProduct());
+            productsByTitle = products;
         } else {
-            model.addAttribute("products", productService.getByTitle(titleFilter));
+            productsByTitle = productService.getByTitle(titleFilter);
         }
+
+        BigDecimal maxPrice = new BigDecimal(0);
+        for (Product product : products) {
+            if (maxPrice.compareTo(product.getPrice()) == -1) {
+                maxPrice = product.getPrice();
+            }
+        }
+
+        if (minFilter == null) {
+            minFilter = new BigDecimal(0);
+        }
+        if (maxFilter == null) {
+            maxFilter = maxPrice;
+        }
+        List<Product> productsByMinMax = productService.getByMinMaxCriteria(minFilter, maxFilter);
+
+        List<Product> selectedProducts = productsByTitle.stream()
+                .distinct()
+                .filter(productsByMinMax::contains)
+                .collect(Collectors.toList());
+
+        model.addAttribute("products", selectedProducts);
         return "product_views/index";
     }
 
