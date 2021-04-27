@@ -58,13 +58,23 @@
         </table>
 
         <div class="row">
-            <div class="col-3">
-                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${pageLeft})}"><i
-                        class="bi bi-arrow-left-square"></i></a>
-                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${pageRight})}"><i
-                        class="bi bi-arrow-right-square"></i></a>
+            <div class="col-10">
+                <div th:if="${totalPages > 0}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/product(size=${pageSize}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:class="${pageNumber==currentPage + 1} ? active"></a>
+                </div>
             </div>
         </div>
+<!--        <div class="row">-->
+<!--            <div class="col-3">-->
+<!--                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${prevPage})}"><i-->
+<!--                        class="fas fa-angle-left"></i></a>-->
+<!--                <a class="btn btn-success" th:href="@{/product/page={page}(page = ${nextPage})}"><i-->
+<!--                        class="fas fa-angle-right"></i></a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 
