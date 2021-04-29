@@ -14,8 +14,11 @@ public class ProductSpecification {
         return (root, query, builder) -> builder.like(root.get("title"), "%" + titleFilter + "%");
     }
 
-    public static Specification<Product> minMaxSelection(BigDecimal minFilter, BigDecimal maxFilter) {
-        return ((root, query, builder) -> builder.between(root.get("price"), minFilter, maxFilter));
+    public static Specification<Product> ge(BigDecimal min) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("price"), min);
     }
 
+    public static Specification<Product> le(BigDecimal max) {
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("price"), max);
+    }
 }

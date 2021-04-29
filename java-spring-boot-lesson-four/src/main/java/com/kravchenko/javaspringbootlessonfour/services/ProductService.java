@@ -4,12 +4,15 @@ import com.kravchenko.javaspringbootlessonfour.entities.Product;
 import com.kravchenko.javaspringbootlessonfour.repositories.ProductRepository;
 import com.kravchenko.javaspringbootlessonfour.repositories.specifications.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class ProductService {
@@ -22,13 +25,8 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> getAllProduct() {
-        return productRepository.findAll();
-    }
-
-    @Transactional
-    public Product getById(Long id) {
-        return productRepository.findById(id).get();
+    public Optional<Product> getById(Long id) {
+        return productRepository.findById(id);
     }
 
     @Transactional
@@ -42,21 +40,26 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> getByTitle(String nameFilter) {
+    public Page<Product> getByParams(Optional<String> nameFilter,
+                                     Optional<BigDecimal> min,
+                                     Optional<BigDecimal> max,
+                                     Optional<Integer> page,
+                                     Optional<Integer> size) {
 
         Specification<Product> specification = Specification.where(null);
-        specification = specification.and(ProductSpecification.titleLike(nameFilter));
+        if (nameFilter.isPresent()) {
+            specification = specification.and(ProductSpecification.titleLike(nameFilter.get()));
+        }
 
-        return productRepository.findAll(specification);
+        if (min.isPresent()) {
+            specification = specification.and(ProductSpecification.ge(min.get()));
+        }
+
+        if (max.isPresent()) {
+            specification = specification.and(ProductSpecification.le(max.get()));
+        }
+
+        return productRepository.findAll(specification,
+                PageRequest.of(page.orElse(1) - 1, size.orElse(4)));
     }
-
-    @Transactional
-    public List<Product> getByMinMaxCriteria(BigDecimal minFilter, BigDecimal maxFilter) {
-
-        Specification<Product> specification = Specification.where(ProductSpecification.trueLiteral());
-        specification = specification.and(ProductSpecification.minMaxSelection(minFilter, maxFilter));
-
-        return productRepository.findAll(specification);
-    }
-
 }
