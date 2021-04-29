@@ -4,9 +4,6 @@ import com.kravchenko.javaspringbootlessonfour.entities.Product;
 import com.kravchenko.javaspringbootlessonfour.services.ProductService;
 import com.kravchenko.javaspringbootlessonfour.services.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/product")
@@ -33,8 +26,18 @@ public class ProductController {
                             @RequestParam(name = "min", required = false) Optional<BigDecimal> min,
                             @RequestParam(name = "max", required = false) Optional<BigDecimal> max,
                             @RequestParam(name = "page", required = false) Optional<Integer> page,
-                            @RequestParam(name = "size", required = false) Optional<Integer> size) {
+                            @RequestParam(name = "size", required = false) Optional<Integer> size,
+                            @RequestParam(name = "sort_field", required = false) Optional<String> sortField,
+                            @RequestParam(name = "sort_dir", required = false) Optional<String> sortDir) {
+
         model.addAttribute("products", productService.getByParams(titleFilter, min, max, page, size));
+        if (titleFilter.isPresent()) model.addAttribute("titleFilter", titleFilter.get());
+        if (min.isPresent()) model.addAttribute("min", min.get());
+        if (max.isPresent()) model.addAttribute("max", max.get());
+        if (page.isPresent()) model.addAttribute("page", page.get());
+        if (size.isPresent()) model.addAttribute("size", size.get());
+        if (sortField.isPresent()) model.addAttribute("sort_field", sortField.get());
+        if (sortDir.isPresent()) model.addAttribute("sort-dir", sortDir.get());
         return "product_views/index";
     }
 
