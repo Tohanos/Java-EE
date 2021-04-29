@@ -8,8 +8,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "manufacturers")
+@Table(name = "manufacturers", schema = "public")
 public class Manufacturer {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -21,9 +22,6 @@ public class Manufacturer {
     @OneToMany(mappedBy = "manufacturer")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Product> products;
-
-    @Formula("(SELECT avg(p.price) FROM products p WHERE p.manufacturer_id = id)")
-    public BigDecimal avgManufacturerProductCost;
 
     public Manufacturer() {
     }

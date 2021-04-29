@@ -1,9 +1,12 @@
 package com.kravchenko.hibernate.entities;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customers", schema = "public")
 public class Customer {
 
     @Id
@@ -14,6 +17,9 @@ public class Customer {
     @Column(name = "name")
     String name;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private List<Purchase> purchases;
 
     public Customer() {
     }
@@ -32,6 +38,10 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
     @Override
