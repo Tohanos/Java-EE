@@ -6,28 +6,26 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "products")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "product_name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
-    @Column(name = "product_description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "product_price")
+    @Column(name = "price")
     private BigDecimal price;
 
     public Product() {
-
     }
 
-    public Product(Long id, String name, String description, BigDecimal price) {
+    public Product(Long id, String title, String description, BigDecimal price) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.price = price;
     }
@@ -40,12 +38,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
