@@ -61,8 +61,17 @@ public class ProductService {
         if (max.isPresent()) {
             specification = specification.and(ProductSpecification.le(max.get()));
         }
-//        Sort sort = new Sort();
 
+        if (sortField.isPresent()) {
+            if (sortDir.isPresent()) {
+                if (sortDir.get().equals("desc")) {
+                    return productRepository.findAll(specification,
+                            PageRequest.of(page.orElse(1) - 1, size.orElse(4), Sort.by(sortField.get()).descending()));
+                }
+            }
+            return productRepository.findAll(specification,
+                    PageRequest.of(page.orElse(1) - 1, size.orElse(4), Sort.by(sortField.get()).ascending()));
+        }
         return productRepository.findAll(specification,
                 PageRequest.of(page.orElse(1) - 1, size.orElse(4)));
     }

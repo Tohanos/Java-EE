@@ -31,10 +31,34 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">Name</th>
+                <th scope="col">
+                    <a class="page-link" th:href="@{/product(
+                    page=${products.number + 1},
+                    size=${products.size},
+                    titleFilter=${param.titleFilter},
+                    min=${param.min},
+                    max=${param.max},
+                    sort_field=id)}">id</a>
+                </th>
+                <th scope="col">
+                    <a class="page-link" th:href="@{/product(
+                    page=${products.number + 1},
+                    size=${products.size},
+                    titleFilter=${param.titleFilter},
+                    min=${param.min},
+                    max=${param.max},
+                    sort_field=Title)}">Title</a>
+                </th>
                 <th scope="col">Description</th>
-                <th scope="col">Price</th>
+                <th scope="col">
+                    <a class="page-link" th:href="@{/product(
+                    page=${products.number + 1},
+                    size=${products.size},
+                    titleFilter=${param.titleFilter},
+                    min=${param.min},
+                    max=${param.max},
+                    sort_field=Price)}">Price</a>
+                </th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>

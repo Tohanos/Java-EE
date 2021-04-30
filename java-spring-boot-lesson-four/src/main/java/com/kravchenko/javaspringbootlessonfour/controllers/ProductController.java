@@ -30,7 +30,7 @@ public class ProductController {
                             @RequestParam(name = "sort_field", required = false) Optional<String> sortField,
                             @RequestParam(name = "sort_dir", required = false) Optional<String> sortDir) {
 
-        model.addAttribute("products", productService.getByParams(titleFilter, min, max, page, size));
+        model.addAttribute("products", productService.getByParams(titleFilter, min, max, page, size, sortField, sortDir));
         if (titleFilter.isPresent()) model.addAttribute("titleFilter", titleFilter.get());
         if (min.isPresent()) model.addAttribute("min", min.get());
         if (max.isPresent()) model.addAttribute("max", max.get());
