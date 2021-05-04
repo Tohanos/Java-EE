@@ -6,6 +6,7 @@ import com.kravchenko.javaspringbootlessonfour.repositories.specifications.Produ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,9 @@ public class ProductService {
                                      Optional<BigDecimal> min,
                                      Optional<BigDecimal> max,
                                      Optional<Integer> page,
-                                     Optional<Integer> size) {
+                                     Optional<Integer> size,
+                                     Optional<String> sortField,
+                                     Optional<String> sortDir) {
 
         Specification<Product> specification = Specification.where(null);
         if (nameFilter.isPresent()) {
@@ -59,6 +62,16 @@ public class ProductService {
             specification = specification.and(ProductSpecification.le(max.get()));
         }
 
+        if (sortField.isPresent()) {
+            if (sortDir.isPresent()) {
+                if (sortDir.get().equals("desc")) {
+                    return productRepository.findAll(specification,
+                            PageRequest.of(page.orElse(1) - 1, size.orElse(4), Sort.by(sortField.get()).descending()));
+                }
+            }
+            return productRepository.findAll(specification,
+                    PageRequest.of(page.orElse(1) - 1, size.orElse(4), Sort.by(sortField.get()).ascending()));
+        }
         return productRepository.findAll(specification,
                 PageRequest.of(page.orElse(1) - 1, size.orElse(4)));
     }

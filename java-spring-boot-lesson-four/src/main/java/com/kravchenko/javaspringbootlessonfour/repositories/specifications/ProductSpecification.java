@@ -21,4 +21,5 @@ public class ProductSpecification {
     public static Specification<Product> le(BigDecimal max) {
         return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("price"), max);
     }
+
 }
