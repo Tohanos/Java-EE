@@ -1,8 +1,10 @@
 package com.kravchenko.javaspringbootlessonfour.rest;
 
+import com.kravchenko.javaspringbootlessonfour.dto.ProductDTO;
 import com.kravchenko.javaspringbootlessonfour.entities.Product;
 import com.kravchenko.javaspringbootlessonfour.services.ProductService;
 import com.kravchenko.javaspringbootlessonfour.services.exceptions.NotFoundException;
+import com.kravchenko.javaspringbootlessonfour.utils.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,25 +24,28 @@ public class ProductRestController {
     }
 
     @GetMapping(value = "/{id}/id", produces = "application/json")
-    public Product findById(@PathVariable("id") Long id) {
-        return service.getById(id).orElseThrow(NotFoundException::new);
+    public ProductDTO findById(@PathVariable("id") Long id) {
+        Product product = service.getById(id).orElseThrow(NotFoundException::new);
+        return ProductMapper.MAPPER.fromProduct(product);
     }
 
     @GetMapping(path = "/list", produces = "application/json")
-    public List<Product> findAll() {
-        return service.getAll();
+    public List<ProductDTO> findAll() {
+        return service.findAll();
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public Product createProduct(@RequestBody Product product) {
+    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+        Product product = ProductMapper.MAPPER.toProduct(productDTO);
         service.addOrUpdate(product);
-        return product;
+        return ProductMapper.MAPPER.fromProduct(product);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    public Product updateProduct(@RequestBody Product product) {
+    public ProductDTO updateProduct(@RequestBody ProductDTO productDTO) {
+        Product product = ProductMapper.MAPPER.toProduct(productDTO);
         service.addOrUpdate(product);
-        return product;
+        return ProductMapper.MAPPER.fromProduct(product);
     }
 
     @DeleteMapping("/{id}/id")

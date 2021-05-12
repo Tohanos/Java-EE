@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,17 +28,18 @@ public class ProductController {
                             @RequestParam(name = "max", required = false) Optional<BigDecimal> max,
                             @RequestParam(name = "page", required = false) Optional<Integer> page,
                             @RequestParam(name = "size", required = false) Optional<Integer> size,
-                            @RequestParam(name = "sort_field", required = false) Optional<String> sortField,
-                            @RequestParam(name = "sort_dir", required = false) Optional<String> sortDir) {
-
-        model.addAttribute("products", productService.getByParams(titleFilter, min, max, page, size, sortField, sortDir));
-        if (titleFilter.isPresent()) model.addAttribute("titleFilter", titleFilter.get());
-        if (min.isPresent()) model.addAttribute("min", min.get());
-        if (max.isPresent()) model.addAttribute("max", max.get());
-        if (page.isPresent()) model.addAttribute("page", page.get());
-        if (size.isPresent()) model.addAttribute("size", size.get());
-        if (sortField.isPresent()) model.addAttribute("sort_field", sortField.get());
-        if (sortDir.isPresent()) model.addAttribute("sort-dir", sortDir.get());
+                            @RequestParam(name = "sortField", required = false) Optional<String> sortField,
+                            @RequestParam(name = "sortOrder", required = false) Optional<String> sortOrder
+    ) {
+        model.addAttribute("products",
+                productService.getByParams(
+                        titleFilter,
+                        min,
+                        max,
+                        page,
+                        size,
+                        sortField,
+                        sortOrder));
         return "product_views/index";
     }
 

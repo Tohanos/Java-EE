@@ -1,8 +1,10 @@
 package com.kravchenko.javaspringbootlessonfour.services;
 
+import com.kravchenko.javaspringbootlessonfour.dto.ProductDTO;
 import com.kravchenko.javaspringbootlessonfour.entities.Product;
 import com.kravchenko.javaspringbootlessonfour.repositories.ProductRepository;
 import com.kravchenko.javaspringbootlessonfour.repositories.specifications.ProductSpecification;
+import com.kravchenko.javaspringbootlessonfour.utils.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -81,4 +83,19 @@ public class ProductService {
         return productRepository.findAll(specification,
                 PageRequest.of(page.orElse(1) - 1, size.orElse(4)));
     }
+
+    public ProductDTO save(ProductDTO productDTO) {
+        Product product = ProductMapper.MAPPER.toProduct(productDTO);
+        product = productRepository.save(product);
+        return ProductMapper.MAPPER.fromProduct(product);
+    }
+
+    public List<ProductDTO> findAll() {
+        return ProductMapper.MAPPER.fromProductList(productRepository.findAll());
+    }
+
+    public ProductDTO findOne(Long id) {
+        return ProductMapper.MAPPER.fromProduct(productRepository.getOne(id));
+    }
+
 }
