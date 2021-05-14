@@ -3,30 +3,28 @@ package com.kravchenko.javaspringbootlessonfour.services;
 import com.kravchenko.javaspringbootlessonfour.entities.Product;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 @Service
 public class CartService {
 
-    private final HashMap<Product, Integer> cart = new HashMap<>();
+    private List<Product> cart = new Vector<>();
 
     public void addProduct(Product product) {
-        if (cart.containsKey(product)) {
-            int numbers = cart.get(product);
-            cart.replace(product, numbers++);
-        } else {
-            cart.put(product, 1);
+        if (cart.stream()
+                .map((r) -> r.getId())
+                .filter(product.getId()::equals)
+                .count() == 0) {
+            cart.add(product);
         }
     }
 
     public void removeProduct(Product product) {
-        if (cart.containsKey(product)) {
-            cart.remove(product);
-        }
+        cart.removeIf(product1 -> product1.getId() == product.getId());
     }
 
     public List<Product> getProductList() {
-        return List.copyOf(cart.keySet());
+        return List.copyOf(cart);
     }
 }

@@ -37,8 +37,6 @@ public class CartController {
         return "redirect:/cart";
     }
 
-
-
     @ExceptionHandler
     public ModelAndView notFoundExceptionHandler(NotFoundException exception) {
         ModelAndView modelAndView = new ModelAndView("product_views/not_found");
