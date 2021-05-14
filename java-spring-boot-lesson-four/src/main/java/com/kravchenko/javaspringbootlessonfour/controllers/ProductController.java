@@ -1,6 +1,7 @@
 package com.kravchenko.javaspringbootlessonfour.controllers;
 
 import com.kravchenko.javaspringbootlessonfour.entities.Product;
+import com.kravchenko.javaspringbootlessonfour.services.CartService;
 import com.kravchenko.javaspringbootlessonfour.services.ProductService;
 import com.kravchenko.javaspringbootlessonfour.services.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +20,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping
     public String indexPage(Model model,
@@ -65,6 +68,12 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String removeProduct(@PathVariable(value = "id") Long id) {
         productService.remove(id);
+        return "redirect:/product";
+    }
+
+    @GetMapping("/add/{id}")
+    public String addProduct(@PathVariable(value = "id") Long id) {
+        cartService.addProduct(productService.getById(id).get());
         return "redirect:/product";
     }
 
