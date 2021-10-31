@@ -1,4 +1,4 @@
 # Java-EE
 Geekbrains Java EE course
 
-Основные вехи обучения легли в java-spring-boot-lesson-four
+Most important part of сourse sits in the java-spring-boot-lesson-four directory
